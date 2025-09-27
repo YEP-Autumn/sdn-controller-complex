@@ -2,3 +2,8 @@ resource/*.pcap
 resource/temp/*.pcap
 *.pcap
 .idea
+.vscode
+
+__pycache__
+**/*.pyc
+gen-py
