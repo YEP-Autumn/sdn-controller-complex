@@ -9,16 +9,16 @@ class Core:
     def __init__(self):
         pass
 
-    def __slave_device_search():
+    def __slave_device_search(self):
         pass
 
-    def __slave_device_add():
+    def __slave_device_add(self):
         pass
 
-    def __slave_device_remove():
+    def __slave_device_remove(self):
         pass
 
-    def slave_device_link_update():
+    def slave_device_link_update(self):
         pass
 
     
