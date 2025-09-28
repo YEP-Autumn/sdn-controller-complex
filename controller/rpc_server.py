@@ -25,9 +25,9 @@ class RpcServer:
 
         self.tfactory = TTransport.TBufferedTransportFactory()
         self.pfactory = TBinaryProtocol.TBinaryProtocolFactory()
-        self.processor = TMultiplexedProcessor().registerProcessor("ControllerService", ControllerService.Processor(ControllerHandler()))
+        self.processor = TMultiplexedProcessor()
 
-        self.processor
+        self.processor.registerProcessor("ControllerService", ControllerService.Processor(ControllerHandler()))
 
         self.server = TServer.TThreadedServer(self.processor, self.transport, self.tfactory, self.pfactory)
 
