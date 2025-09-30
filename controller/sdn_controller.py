@@ -44,8 +44,8 @@ class SlaveDevice:
     def __init__(self):
         pass
 
-    def add_port(self, port_no, port_type = None, mac = None, ip = None):
-        self.port_list.add(Port(port_no, port_type, mac, ip))
+    def add_port(self, port_no):
+        self.port_list.add(Port(port_no))
 
     def remove_port(self, port_no):
         self.port_list.discard(Port(port_no))
