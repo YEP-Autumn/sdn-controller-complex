@@ -1,5 +1,4 @@
 from enum import Enum
-import json
 import threading
 import time
 import uuid
@@ -18,6 +17,7 @@ class Port:
     def __init__(self, device_hostname, port_no):
         self.device_hostname = device_hostname
         self.port_no = port_no
+        self.last_update_time = time.time()
 
     def __str__(self):
         return "Port(device_hostname={}, port_no={})".format(self.device_hostname, self.port_no)
@@ -32,6 +32,7 @@ class InterconnectionPort():
         self.port_no = port_no
         self.peer_device_hostname = peer_device_hostname
         self.peer_port = peer_port
+        self.last_update_time = time.time()
 
     def __str__(self):
         return "InterconnectionPort(device_hostname={}, port_no={}, peer_device_hostname={}, peer_port={})".\
@@ -63,12 +64,15 @@ class SlaveDevice:
         self.stream_table = []
         self.stream_table_add_queue = []
         self.stream_table_del_queue = []
+        threading.Thread(target=self.__port_aging_timer, name='port_aging_timer').start()
 
     def add_port(self, port_no):
         port = self.__search_port(port_no)
-        if not port:
+        if port:
+            port.last_update_time = time.time()
+        else:
             self.port_list.append(Port(self.hostname, port_no))
-
+ 
     def remove_port(self, port_no):
         port = self.__search_port(port_no)
         if port:
@@ -76,7 +80,9 @@ class SlaveDevice:
 
     def add_interconnection_link(self, port_no, peer_device_hostname, peer_port):
         link  = self.__search_interconnection_link(port_no, peer_device_hostname, peer_port)
-        if not link:
+        if link:
+            link.last_update_time = time.time()
+        else:
             self.interconnection_link_list.append(
                 InterconnectionPort(
                     self.hostname, port_no, 
@@ -159,6 +165,15 @@ class SlaveDevice:
             self.stream_table.remove(stream_table)
 
         self.stream_table_del_queue = []
+
+    def __port_aging_timer(self):
+        for port in self.port_list:
+            if time.time() - port.last_update_time > 30:
+                self.port_list.remove(port)
+        
+        for link in self.interconnection_link_list:
+            if time.time() - link.last_update_time > 30:
+                self.interconnection_link_list.remove(link)
 
     def __str__(self):
         return "SlaveDevice(hostname={}, uuid={})".format(self.hostname, self.uuid)

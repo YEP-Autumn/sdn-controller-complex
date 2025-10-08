@@ -45,14 +45,14 @@ struct InterconnectionLinkUpdate {
 struct Device
 {
     1: string name,
-    2: list<Port> ports,
-    3: list<InterconnectionLink> links
+    2: list<Port> port_list,
+    3: list<InterconnectionLink> link_list
 }
 
 struct DeviceUpdate {
     1: string name,
-    2: list<PortUpdate> port_update,
-    3: list<InterconnectionLinkUpdate> link_update
+    2: list<PortUpdate> port_update_list,
+    3: list<InterconnectionLinkUpdate> link_update_list
 }
 
 enum ForwardEntryType {
@@ -74,13 +74,17 @@ struct Stream {
     2: ForwardEntry entry
 }
 
+struct ConfigUpdate {
+    1: list<Stream> streams_add_list,
+    2: list<Stream> streams_del_list,
+    3: list<Stream> streams_update_list
+}
+
 struct Config {
-    1: list<Stream> streams_add,
-    2: list<Stream> streams_del,
-    3: list<Stream> streams_update
+    1: list<Stream> streams_list
 }
 
 service ControllerService {
-    Config keep_alive(1: DeviceUpdate device_update),
+    ConfigUpdate keep_alive(1: DeviceUpdate device_update),
     Config link_full_request(1: Device device)
 }
