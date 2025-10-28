@@ -64,12 +64,17 @@ def sdn_controller_test():
         pprint(stream)
         pprint(stream.stream_table)
 
-    while True:
-        time.sleep(10)
-        pprint(controller.topo.path_calculate_unit.path_vector_list)
-        for stream in controller.stream_table:
-            pprint(stream)
-            pprint(stream.stream_table)
+
+    # while True:
+        # for device in controller.topo.slave_devices:
+        #     pprint(device.stream_table_add_queue)
+
+    # while True:
+    #     time.sleep(10)
+    #     pprint(controller.topo.path_calculate_unit.path_vector_list)
+    #     for stream in controller.stream_table:
+    #         pprint(stream)
+    #         pprint(stream.stream_table)
 
 if __name__ == "__main__":
     sdn_controller_test()

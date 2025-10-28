@@ -164,6 +164,7 @@ class SlaveDevice:
         for stream_table in self.stream_table_del_queue:
             self.stream_table.remove(stream_table)
 
+        self.stream_table_add_queue = []
         self.stream_table_del_queue = []
 
     def __port_aging_timer(self):

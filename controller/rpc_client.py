@@ -2,7 +2,7 @@ from pprint import pprint
 import sys
 import time
 
-from __test_data import TestData
+from test.__test_data import TestData
 
 
 sys.path.append('thrift/gen-py')
@@ -33,17 +33,17 @@ if __name__ == "__main__":
     port_list = []
     link_list = []
 
-    for port in TestData.device_1['ports']:
-        port_list.append(Port(port['port_no']))
+    # for port in TestData.device_1['ports']:
+    #     port_list.append(Port(port['port_no']))
 
-    for link in TestData.device_1['interconnection_links']:
-        link_list.append(
-            InterconnectionLink(
-                local_if_index=link['to']['port'], 
-                peer_device_name=link['from']['hostname'], 
-                peer_if_index=link['from']['port']))
+    # for link in TestData.device_1['interconnection_links']:
+    #     link_list.append(
+    #         InterconnectionLink(
+    #             local_if_index=link['to']['port'], 
+    #             peer_device_name=link['from']['hostname'], 
+    #             peer_if_index=link['from']['port']))
 
-    device_list.append(Device(TestData.device_1['hostname'], port_list, link_list))
+    # device_list.append(Device(TestData.device_1['hostname'], port_list, link_list))
 
     port_list = []
     link_list = []
@@ -94,6 +94,8 @@ if __name__ == "__main__":
     while True:
         for device in device_list:
             ret = client.link_full_request(device)
+            pprint("----- Device{} Link Full Request Result -----".format(device.name))
+            pprint(ret)
         time.sleep(5)
 
     pprint(ret)

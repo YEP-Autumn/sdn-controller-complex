@@ -1,5 +1,5 @@
 import sdn_controller
-from sdn_controller import SDNController, SlaveDevice
+from sdn_controller import Port, SDNController, SlaveDevice
 
 from pprint import pprint
 import controller.ttypes
@@ -18,11 +18,15 @@ def forward_type_translate_to_rpc(forward_type):
 
 class ControllerHandler:
 
+    debug = False
+
     def __init__(self):
         self.sdn_controller = SDNController()
+        self.sdn_controller.add_bidirectional_stream(Port('device_1', 1), Port('device_4', 3))
 
     def keep_alive(self, device_update):
-        pprint(device_update)
+
+        if self.debug: pprint(device_update)
 
         streams_add = []
         streams_del = []
@@ -72,7 +76,8 @@ class ControllerHandler:
         return ConfigUpdate(streams_add, streams_del, streams_update)
 
     def link_full_request(self, device):
-        pprint(device)
+
+        if self.debug: pprint(device)
 
         streams_list = []
 
@@ -90,11 +95,16 @@ class ControllerHandler:
                 link.peer_device_name, 
                 link.peer_if_index)
 
+
+        slave_device.stream_table_install_finish()
+
+        print(slave_device.stream_table)
+
         for stream in slave_device.stream_table:
             forward_entry = ForwardEntry(
                     stream.stream_id, 
-                    stream.src_port.if_index,
-                    stream.dst_port.if_index,
+                    stream.in_port,
+                    stream.out_port,
                     forward_type_translate_to_rpc(stream.forward_type))
             streams_list.append(Stream(stream.stream_id, forward_entry))
         

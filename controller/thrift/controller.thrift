@@ -1,12 +1,12 @@
-namespace cl stream
-namespace cpp stream
-namespace d stream
-namespace dart stream
-namespace java stream
-namespace php stream
-namespace perl stream
-namespace haxe stream
-namespace netstd stream
+namespace cl controller
+namespace cpp controller
+namespace d controller
+namespace dart controller
+namespace java controller
+namespace php controller
+namespace perl controller
+namespace haxe controller
+namespace netstd controller
 
 enum Operation {
     ADD,
