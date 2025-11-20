@@ -18,11 +18,10 @@ def forward_type_translate_to_rpc(forward_type):
 
 class ControllerHandler:
 
-    debug = False
+    debug = True
 
     def __init__(self):
         self.sdn_controller = SDNController()
-        self.sdn_controller.add_bidirectional_stream(Port('device_1', 1), Port('device_4', 3))
 
     def keep_alive(self, device_update):
 
@@ -98,7 +97,9 @@ class ControllerHandler:
 
         slave_device.stream_table_install_finish()
 
-        print(slave_device.stream_table)
+        if(self.debug):
+            print("Stream Table: \n")
+            print(slave_device.stream_table)
 
         for stream in slave_device.stream_table:
             forward_entry = ForwardEntry(
