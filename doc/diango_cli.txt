@@ -1,0 +1,10 @@
+# 删除数据库
+rm db.sqlite3
+删除 `0001_initial.py`、`0002_auto.py` 等文件
+
+# 生成数据库文件
+python manage.py makemigrations topology
+python manage.py migrate
+
+# 创建用户
+python manage.py createsuperuser

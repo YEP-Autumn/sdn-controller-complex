@@ -1,10 +1,6 @@
-
-import sys
 import threading
 from time import sleep
-sys.path.append("thrift/gen-py")
 from rpc_handler.controller_handler import ControllerHandler
-from pprint import pprint
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport
@@ -20,14 +16,16 @@ class RpcServer:
         self.host = host
         self.port = port
 
-    def controller_service_server_start(self):
+    def controller_service_server_start(self, sdn_controller):
+        print("Starting RPC server on {}:{}".format(self.host, self.port))
+
         transport = TSocket.TServerSocket(host=self.host, port=self.port)
 
         tfactory = TTransport.TBufferedTransportFactory()
         pfactory = TBinaryProtocol.TBinaryProtocolFactory()
         processor = TMultiplexedProcessor()
 
-        processor.registerProcessor("ControllerService", ControllerService.Processor(ControllerHandler()))
+        processor.registerProcessor("ControllerService", ControllerService.Processor(ControllerHandler(sdn_controller)))
 
         server = TServer.TThreadedServer(processor, transport, tfactory, pfactory)
 
@@ -36,11 +34,11 @@ class RpcServer:
         server_thread.start()
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    RpcServer("127.0.0.1", 9090).controller_service_server_start()
-    pprint("Starting the server...")
+#     RpcServer("127.0.0.1", 9090).controller_service_server_start()
+#     print("Starting the server...")
 
-    sleep(10000)
+#     sleep(10000)
 
 

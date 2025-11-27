@@ -4,10 +4,7 @@ import time
 
 from test.__test_data import TestData
 
-
-sys.path.append('thrift/gen-py')
-
-from controller import ControllerService
+from sdn_controller import ControllerService
 
 from thrift import Thrift
 from thrift.transport import TSocket
@@ -15,7 +12,7 @@ from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 from thrift.protocol.TMultiplexedProtocol import TMultiplexedProtocol
 
-from controller.ttypes import Device, InterconnectionLink, Port
+from thrift import Device, InterconnectionLink, Port
 
 if __name__ == "__main__":
     transport = TSocket.TSocket('localhost', 9090)

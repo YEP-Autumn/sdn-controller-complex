@@ -26,6 +26,8 @@ SECRET_KEY = "django-insecure-=x7vve8x=#z)^)vi3y#li8co00xr6w0z^ciw-+h8p$sl*3*!a(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+APPEND_SLASH = False
+
 ALLOWED_HOSTS = []
 
 
@@ -33,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "topology.apps.TopologyConfig",
+    "stream_backend.apps.StreamBackendConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

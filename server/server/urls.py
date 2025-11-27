@@ -27,5 +27,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     path("topology/", include("topology.urls")),
+    path("stream_backend/", include("stream_backend.urls")),
     path('admin/', admin.site.urls),
 ]
