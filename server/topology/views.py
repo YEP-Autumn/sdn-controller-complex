@@ -1,6 +1,6 @@
-from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from .models import Topology
+from django.views.decorators.http import require_http_methods
 
 # Create your views here.
 
@@ -9,11 +9,8 @@ def index(request):
     return HttpResponse("Hello, world. You're at the topology index.")
 
 
-@api_view(["POST"])
+@require_http_methods(["POST"])
 def topologyCreate(request):
-    print("Received POST data:", request.data)
-
-    toponame = request.data.get("name")
 
     # print("Creating topology:", toponame)
 

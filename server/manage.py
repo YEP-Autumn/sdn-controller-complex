@@ -3,8 +3,9 @@
 import os
 import sys
 
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../thrift/gen-py')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../sdn_controller')
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../sdn_controller/thrift/gen-py')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../sdn_controller')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../sdn_controller/rpc_handler')
 
 

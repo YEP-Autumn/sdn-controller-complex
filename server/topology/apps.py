@@ -1,4 +1,6 @@
 from django.apps import AppConfig
+from rpc_server import RpcServer
+from sdn_controller import SDNController
 import os
 
 global SDN_CONTROLLER
@@ -13,12 +15,6 @@ class TopologyConfig(AppConfig):
         print("Topology app is ready {}.".format(os.environ.get("RUN_MAIN", None)))
         if os.environ.get("RUN_MAIN", None) != "true":
             print("Initializing SDN Controller and RPC Server...")
-
-            from rpc_server import RpcServer
-            from sdn_controller import SDNController
-
-            print("Initializing SDN Controller and RPC Server...2")
-
             SDN_CONTROLLER = SDNController()
             THRIFT_RPC_SERVER = RpcServer(
                 "127.0.0.1", 9090
