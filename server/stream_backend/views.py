@@ -17,8 +17,45 @@ def index(request):
 @require_http_methods(["POST"])
 def stream_backend_packet_send(request):
     try:
-        # 获取原始二进制数据
-        binary_data = request.body
+        # Support multipart/form-data with a `file` field and optional extra fields.
+        # Fall back to raw request.body for existing clients that POST the binary directly.
+        binary_data = None
+        received_filename = None
+        parsed_fields = {}
+
+        content_type = request.META.get("CONTENT_TYPE", request.content_type or "")
+        if content_type and content_type.startswith("multipart/"):
+            # Django populates request.FILES and request.POST for multipart requests
+            if "file" not in request.FILES:
+                return JsonResponse({"error": "No file field in multipart request"}, status=400)
+            uploaded = request.FILES["file"]
+            try:
+                binary_data = uploaded.read()
+            except Exception:
+                # UploadedFile should support read(); if not, try .file
+                try:
+                    binary_data = uploaded.file.read()
+                except Exception as e:
+                    return JsonResponse({"error": f"Unable to read uploaded file: {e}"}, status=400)
+            received_filename = getattr(uploaded, "name", None)
+
+            # Parse additional form fields (attempt JSON decode when possible)
+            for k in request.POST:
+                v = request.POST.get(k)
+                if v is None:
+                    parsed_fields[k] = None
+                    continue
+                try:
+                    parsed_fields[k] = json.loads(v)
+                except Exception:
+                    parsed_fields[k] = v
+        else:
+            # Fallback: treat entire body as raw binary
+            binary_data = request.body
+
+        if binary_data is None:
+            return JsonResponse({"error": "No binary data in request"}, status=400)
+
         print(f"Received binary packet of {len(binary_data)} bytes")
         print('Hex dump:', binary_data.hex())
 
@@ -156,6 +193,8 @@ def stream_backend_packet_send(request):
             "message": "Stream backend packet send endpoint.",
             "bytes_received": len(binary_data),
             "packet": {"field_list": field_list},
+            "received_filename": received_filename,
+            "fields": parsed_fields,
         }
         try:
             print("Thrift deserialization success response:\n", json.dumps(response_obj, ensure_ascii=False, indent=2))
