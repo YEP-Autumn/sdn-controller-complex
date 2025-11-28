@@ -1,0 +1,9 @@
+asgiref==3.11.0
+bitmap==0.0.7
+Dijkstar==2.6.0
+Django==5.2.8
+future==1.0.0
+PySocks==1.7.1
+six==1.17.0
+sqlparse==0.5.4
+thrift==0.22.0
