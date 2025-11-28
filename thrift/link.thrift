@@ -1,9 +1,0 @@
-namespace cl link
-namespace cpp link
-namespace d link
-namespace dart link
-namespace java link
-namespace php link
-namespace perl link
-namespace haxe link
-namespace netstd link
