@@ -2,12 +2,14 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import logging
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../thrift/gen-py')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../sdn_controller')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../sdn_controller')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../sdn_controller/rpc_handler')
 
+logging.basicConfig(level=logging.DEBUG)
 
 def main():
     """Run administrative tasks."""
