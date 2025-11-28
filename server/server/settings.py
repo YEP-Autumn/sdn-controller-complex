@@ -126,17 +126,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        # 重点：全局设置为 JWT 认证
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-        # 可以移除 SessionAuthentication，以确保纯 API 环境不依赖 Session/Cookie
-        # 'rest_framework.authentication.SessionAuthentication',
-    ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    # ... 其他 DRF 配置
-}
-
 SIMPLE_JWT = {
     # Access Token 的有效期 (建议较短，如 5 分钟 ~ 1 小时)
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
