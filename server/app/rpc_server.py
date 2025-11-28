@@ -1,6 +1,6 @@
 import threading
 from time import sleep
-from lib.controller.controller_handler import ControllerHandler
+from controller_handler import ControllerHandler
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport
