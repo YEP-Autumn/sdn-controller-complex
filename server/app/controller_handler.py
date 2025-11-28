@@ -1,10 +1,6 @@
-
-import sys
-import os
-from sdn_controller import Port, SDNController, SlaveDevice, ForwardEntryType
+from lib.controller.controller import Port, SDNController, SlaveDevice, ForwardEntryType
 from pprint import pprint
 
-# sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../thrift/gen-py')
 from controller.ttypes import Config, ConfigUpdate, ForwardEntry, Operation, Stream
 from controller.ttypes import ForwardEntryType as RpcForwardEntryType
 

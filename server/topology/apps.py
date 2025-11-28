@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 from rpc_server import RpcServer
-from sdn_controller import SDNController
+from lib.controller.controller import SDNController
 import os
 
 global SDN_CONTROLLER

@@ -3,8 +3,7 @@ import threading
 import time
 import uuid
 from dijkstar import Graph, find_path
-from opf import OPF
-
+from lib.opf.opf import OPF
 
 class ForwardEntryType(Enum):
     ENCAP = 0

@@ -4,10 +4,9 @@ import os
 import sys
 import logging
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../thrift/gen-py')
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../sdn_controller')
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../sdn_controller')
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../sdn_controller/rpc_handler')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../rpc/thrift/gen-py')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/..')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/app')
 
 logging.basicConfig(level=logging.DEBUG)
 

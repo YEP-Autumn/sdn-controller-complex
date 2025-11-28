@@ -1,6 +1,6 @@
 import threading
 from time import sleep
-from rpc_handler.controller_handler import ControllerHandler
+from lib.controller.controller_handler import ControllerHandler
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport
@@ -32,13 +32,4 @@ class RpcServer:
         server_thread = threading.Thread(target=server.serve, name='rpc_server')
         server_thread.daemon = True
         server_thread.start()
-
-
-# if __name__ == "__main__":
-
-#     RpcServer("127.0.0.1", 9090).controller_service_server_start()
-#     print("Starting the server...")
-
-#     sleep(10000)
-
 
