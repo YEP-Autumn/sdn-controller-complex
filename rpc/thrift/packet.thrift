@@ -16,7 +16,7 @@ const map<string,string> MAPCONSTANT = {'hello':'world', 'goodnight':'moon'}
 enum FieldType {
   EthernetII = 1,
   VLAN = 2,
-  IPV4 = 3,
+  IPv4 = 3,
   IPv6 = 4,
   TCP  = 5,
   UDP  = 6,
